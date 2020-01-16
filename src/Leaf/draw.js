@@ -12,7 +12,7 @@ export default function draw() {
     x: safeArea.width / data.length,
     y:
       (safeArea.height - options.marginY * 2) /
-      Math.max(...data.map(({ value }) => value))
+      Math.max(...data.map(({ value }) => Math.abs(value)))
   };
   const shoot = () => {
     ctx.clearRect(0, 0, clientRect.width, clientRect.height);
@@ -23,7 +23,8 @@ export default function draw() {
       .map((item, index) => {
         const { marginX, marginY } = options;
         item.x = unit.x * index + unit.x * 0.5 + marginX;
-        item.y = clientRect.height - (unit.y * item.value + marginY * 3);
+        item.y =
+          clientRect.height - (unit.y * Math.abs(item.value) + marginY * 3);
         return item;
       })
       .forEach((item, index) => {

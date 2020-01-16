@@ -9,8 +9,9 @@ export default class Point {
     this.done = false;
     const duration = animationDuration / 1000;
     gsap.to(this, duration, {
+      ease: "power2.inOut",
       value,
-      onComplete: () => (this.done = true)
+      onComplete: () => void (this.done = true)
     });
   }
 }

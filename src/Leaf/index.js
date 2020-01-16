@@ -33,7 +33,7 @@ export default class Leaf extends React.Component {
     this.canvas = null;
     this.ctx = null;
     this.draw = draw;
-    this.getCanvasCtx = this.getCanvasCtx.bind(this);
+    this.receiveCanvasCtx = this.receiveCanvasCtx.bind(this);
     if (this.options.isScrollObserved) {
       this.intersectionObserver = new window.IntersectionObserver(
         this.intersectionCallback.bind(this),
@@ -41,12 +41,10 @@ export default class Leaf extends React.Component {
       );
     }
   }
-  getCanvasCtx(canvas, ctx) {
-    if (canvas) {
-      this.canvas = canvas;
-      this.ctx = ctx;
-      this.intersectionObserver ? this.observeCanvas(canvas) : this.draw();
-    }
+  receiveCanvasCtx(canvas, ctx) {
+    this.canvas = canvas;
+    this.ctx = ctx;
+    this.intersectionObserver ? this.observeCanvas(canvas) : this.draw();
   }
   intersectionCallback(entries) {
     entries.forEach(entry => entry.isIntersecting && this.draw());
@@ -55,6 +53,6 @@ export default class Leaf extends React.Component {
     this.intersectionObserver.observe(canvas);
   }
   render() {
-    return <Canvas ref={this.getCanvasCtx} options={this.options}></Canvas>;
+    return <Canvas ref={this.receiveCanvasCtx} options={this.options}></Canvas>;
   }
 }

@@ -19,18 +19,19 @@ export default function draw() {
     ctx.lineWidth = options.lineWidth;
     drawTitle(ctx, options, clientRect);
     drawAxis(ctx, options, safeArea);
-    dataTable.forEach((item, index) => {
-      item.x = unit.x * index + unit.x * 0.5 + options.marginX;
-      item.y = clientRect.height - (unit.y * item.value + options.marginY * 3);
-    });
-    dataTable.slice(0, -1).forEach((item, index) => {
-      drawLine(ctx, options, item, dataTable[index + 1]);
-    });
-    dataTable.map((item, index) => {
-      drawSubtitle(ctx, options, safeArea, item);
-      drawGrid(ctx, options, safeArea, item);
-      drawPoint(ctx, options, item);
-    });
+    dataTable
+      .map((item, index) => {
+        const { marginX, marginY } = options;
+        item.x = unit.x * index + unit.x * 0.5 + marginX;
+        item.y = clientRect.height - (unit.y * item.value + marginY * 3);
+        return item;
+      })
+      .forEach((item, index) => {
+        drawLine(ctx, options, item, dataTable[index + 1]);
+        drawSubtitle(ctx, options, safeArea, item);
+        drawGrid(ctx, options, safeArea, item);
+        drawPoint(ctx, options, item);
+      });
     if (options.showTopAnnotation) {
       const rawTopItem = data
         .slice()
@@ -38,7 +39,7 @@ export default function draw() {
       const topItem = dataTable[data.indexOf(rawTopItem)];
       drawTopAnnotation(ctx, options, topItem);
     }
-    if (dataTable.every(({ done }) => !done)) {
+    if (!dataTable.every(({ done }) => done)) {
       window.requestAnimationFrame(shoot);
     }
   };
@@ -83,14 +84,16 @@ function drawAxis(ctx, options, safeArea) {
 }
 
 function drawLine(ctx, options, fromItem, toItem) {
-  const { color, colorLine } = options;
-  const { x: fromX, y: fromY } = fromItem;
-  const { x: toX, y: toY } = toItem;
-  ctx.fillStyle = ctx.strokeStyle = color || colorLine;
-  ctx.beginPath();
-  ctx.moveTo(fromX, fromY);
-  ctx.lineTo(toX, toY);
-  ctx.stroke();
+  if (toItem) {
+    const { color, colorLine } = options;
+    const { x: fromX, y: fromY } = fromItem;
+    const { x: toX, y: toY } = toItem;
+    ctx.fillStyle = ctx.strokeStyle = color || colorLine;
+    ctx.beginPath();
+    ctx.moveTo(fromX, fromY);
+    ctx.lineTo(toX, toY);
+    ctx.stroke();
+  }
 }
 
 function drawSubtitle(ctx, options, safeArea, item) {

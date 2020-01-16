@@ -4,26 +4,24 @@ export default function draw() {
   const { data, options, canvas, ctx } = this;
   const clientRect = canvas.getBoundingClientRect();
   const dataTable = data.map(item => new Point(item, options));
-  const { width: cWidth, height: cHeight } = clientRect;
   const safeArea = {
     width: clientRect.width - options.marginX * 2,
     height: clientRect.height - options.marginY * 4
   };
-  const { width: sWidth, height: sHeight } = safeArea;
   const unit = {
-    x: sWidth / data.length,
+    x: safeArea.width / data.length,
     y:
-      (sHeight - options.marginY * 2) /
+      (safeArea.height - options.marginY * 2) /
       Math.max(...data.map(({ value }) => value))
   };
   const shoot = () => {
-    ctx.clearRect(0, 0, cWidth, cHeight);
+    ctx.clearRect(0, 0, clientRect.width, clientRect.height);
     ctx.lineWidth = options.lineWidth;
-    drawTitle(ctx, options, { x: cWidth * 0.5, y: options.marginY });
+    drawTitle(ctx, options, { x: clientRect.width * 0.5, y: options.marginY });
     drawAxis(ctx, options, safeArea);
     dataTable.forEach((item, index) => {
       item.x = unit.x * index + unit.x * 0.5 + options.marginX;
-      item.y = cHeight - (unit.y * item.value + options.marginY * 3);
+      item.y = clientRect.height - (unit.y * item.value + options.marginY * 3);
     });
     dataTable.slice(0, -1).forEach((item, index) => {
       drawLine(ctx, options, item, dataTable[index + 1]);

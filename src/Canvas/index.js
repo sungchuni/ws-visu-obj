@@ -18,8 +18,9 @@ function Canvas(props, forwardCanvasCtx) {
       if (scale > 1) {
         canvas.style.width = `${options.width}px`;
         canvas.style.height = `${options.height}px`;
-        canvas.width *= scale;
-        canvas.height *= scale;
+        // 렌더링 될 때 간헐적으로 작게 표시되는 문제가 재현되어, width값 직접 지정 
+        canvas.width = options.width * scale;
+        canvas.height = options.height * scale;
         ctx.scale(scale, scale);
       }
       forwardCanvasCtx(canvas, ctx);

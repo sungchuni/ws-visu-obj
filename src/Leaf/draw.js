@@ -18,24 +18,21 @@ export default function draw() {
   };
   const shoot = () => {
     ctx.clearRect(0, 0, cWidth, cHeight);
-    ctx.fillStyle = options.color;
     ctx.lineWidth = options.lineWidth;
     drawTitle(ctx, options, { x: cWidth * 0.5, y: options.marginY });
     drawAxis(ctx, options, safeArea);
-    dataTable
-      .map((item, index) => {
-        item.x = unit.x * index + unit.x * 0.5 + options.marginX;
-        item.y = cHeight - (unit.y * item.value + options.marginY * 3);
-        drawSubtitle(ctx, options, safeArea, item);
-        drawGrid(ctx, options, safeArea, item);
-        drawPoint(ctx, options, item);
-        return item;
-      })
-      .slice(0, -1)
-      .map((item, index) => {
-        drawLine(ctx, item, dataTable[index + 1]);
-        return item;
-      });
+    dataTable.forEach((item, index) => {
+      item.x = unit.x * index + unit.x * 0.5 + options.marginX;
+      item.y = cHeight - (unit.y * item.value + options.marginY * 3);
+    });
+    dataTable.slice(0, -1).forEach((item, index) => {
+      drawLine(ctx, options, item, dataTable[index + 1]);
+    });
+    dataTable.map((item, index) => {
+      drawSubtitle(ctx, options, safeArea, item);
+      drawGrid(ctx, options, safeArea, item);
+      drawPoint(ctx, options, item);
+    });
     if (options.showTopAnnotation) {
       const rawTopItem = data
         .slice()
@@ -57,6 +54,7 @@ function drawTitle(ctx, options, position) {
   const { x, y } = position;
   ctx.font = `${titleFontSize}px ${fontStyle}`;
   ctx.textAlign = "center";
+  ctx.fillStyle = ctx.strokeStyle = options.color || options.colorText;
   ctx.fillText(title, x, y);
 }
 
@@ -70,11 +68,23 @@ function drawAxis(ctx, options, safeArea) {
     marginY * 2 + height
   ];
   ctx.globalAlpha = options.gridAlpha;
+  ctx.fillStyle = ctx.strokeStyle = options.color || options.colorLine;
+  ctx.beginPath();
   ctx.moveTo(fromX, fromY);
   ctx.lineTo(fromX, toY);
   ctx.lineTo(toX, toY);
   ctx.stroke();
   ctx.globalAlpha = 1;
+}
+
+function drawLine(ctx, options, fromItem, toItem) {
+  const { x: fromX, y: fromY } = fromItem;
+  const { x: toX, y: toY } = toItem;
+  ctx.fillStyle = ctx.strokeStyle = options.color || options.colorLine;
+  ctx.beginPath();
+  ctx.moveTo(fromX, fromY);
+  ctx.lineTo(toX, toY);
+  ctx.stroke();
 }
 
 function drawSubtitle(ctx, options, safeArea, item) {
@@ -84,6 +94,7 @@ function drawSubtitle(ctx, options, safeArea, item) {
   const y = height + marginY * 3;
   ctx.font = `${subtitleFontSize}px ${fontStyle}`;
   ctx.textAlign = "center";
+  ctx.fillStyle = ctx.strokeStyle = options.color || options.colorText;
   ctx.fillText(title, x, y);
 }
 
@@ -94,6 +105,8 @@ function drawGrid(ctx, options, safeArea, item) {
   const { x: toX, y: toY } = item;
   if (toY < fromY) {
     ctx.globalAlpha = options.gridAlpha;
+    ctx.fillStyle = ctx.strokeStyle = options.color || options.colorLine;
+    ctx.beginPath();
     ctx.moveTo(fromX, fromY);
     ctx.lineTo(toX, toY);
     ctx.stroke();
@@ -103,17 +116,10 @@ function drawGrid(ctx, options, safeArea, item) {
 
 function drawPoint(ctx, options, item) {
   const { x, y } = item;
+  ctx.fillStyle = ctx.strokeStyle = options.color || options.colorPoint;
   ctx.beginPath();
   ctx.arc(x, y, options.pointSize * 0.5, 0, Math.PI * 2);
   ctx.fill();
-}
-
-function drawLine(ctx, fromItem, toItem) {
-  const { x: fromX, y: fromY } = fromItem;
-  const { x: toX, y: toY } = toItem;
-  ctx.moveTo(fromX, fromY);
-  ctx.lineTo(toX, toY);
-  ctx.stroke();
 }
 
 function drawTopAnnotation(ctx, options, topItem) {
@@ -124,5 +130,6 @@ function drawTopAnnotation(ctx, options, topItem) {
     : value.toFixed(1);
   ctx.font = `${annotationFontSize}px ${fontStyle}`;
   ctx.textAlign = "center";
+  ctx.fillStyle = ctx.strokeStyle = options.color || options.colorText;
   ctx.fillText(annotationTitle, x, y - marginY * 0.5);
 }

@@ -24,6 +24,10 @@ declare namespace Leaf {
     title: string;
   }
   interface Options {
+    color?: string;
+    colorPoint?: string;
+    colorLine?: string;
+    colorText?: string;
     title?: string;
     titleFontSize?: number;
     subtitleFontSize?: number;
@@ -33,7 +37,6 @@ declare namespace Leaf {
     height?: number;
     marginX?: number;
     marginY?: number;
-    color?: string;
     gridAlpha?: number;
     pointSize?: number;
     lineWidth?: number;

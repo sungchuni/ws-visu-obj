@@ -4,6 +4,9 @@ import Canvas from "../Canvas";
 import draw from "./draw";
 
 const DEFAULT_LEAF_OPTIONS = Object.freeze({
+  colorPoint: "#000000",
+  colorLine: "#000000",
+  colorText: "#000000",
   title: "",
   titleFontSize: 16,
   subtitleFontSize: 14,
@@ -13,7 +16,6 @@ const DEFAULT_LEAF_OPTIONS = Object.freeze({
   height: 192,
   marginX: 24,
   marginY: 19.2,
-  color: "#000000",
   gridAlpha: 0.2,
   pointSize: 4,
   lineWidth: 1,

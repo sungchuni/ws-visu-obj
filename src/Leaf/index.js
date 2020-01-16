@@ -4,25 +4,26 @@ import Canvas from "../Canvas";
 import draw from "./draw";
 
 const DEFAULT_LEAF_OPTIONS = Object.freeze({
-  colorPoint: "#000000",
-  colorLine: "#000000",
-  colorText: "#000000",
+  //실제로 사용할 스타일을 디폴트로 지정, 변경값만 호출 시 지정할 것
+  colorPoint: "#535353",
+  colorLine: "#535353",
+  colorText: "#535353",
   title: "",
-  titleFontSize: 16,
-  subtitleFontSize: 14,
-  annotationFontSize: 12,
+  titleFontSize: 12,
+  subtitleFontSize: 12,
+  annotationFontSize: 10,
   fontStyle: "serif",
   width: 240,
   height: 192,
   marginX: 24,
   marginY: 19.2,
   gridAlpha: 0.2,
-  pointSize: 4,
+  pointSize: 7,
   lineWidth: 1,
   showTopAnnotation: false,
   isPercentage: false,
   animationDuration: 1500,
-  isScrollObserved: false
+  isScrollObserved: true
 });
 
 export default class Leaf extends React.Component {

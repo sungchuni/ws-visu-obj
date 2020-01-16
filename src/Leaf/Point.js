@@ -8,7 +8,8 @@ export default class Point {
     this.y = 0;
     this.done = false;
     const duration = animationDuration / 1000;
-    gsap.to(this, duration, {
+    //easing 함수 적용 
+      gsap.to(this, duration, {ease: "power2.inOut",
       value,
       onComplete: () => (this.done = true)
     });

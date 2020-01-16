@@ -14,7 +14,8 @@ export default function draw() {
     x: sWidth / data.length,
     y:
       (sHeight - options.marginY * 2) /
-      Math.max(...data.map(({ value }) => value))
+      //API에서 음수가 올 때를 대비해서 절대값처리
+      Math.max(...data.map(({ value }) => Math.abs(value)))
   };
   const shoot = () => {
     ctx.clearRect(0, 0, cWidth, cHeight);
@@ -23,7 +24,8 @@ export default function draw() {
     drawAxis(ctx, options, safeArea);
     dataTable.forEach((item, index) => {
       item.x = unit.x * index + unit.x * 0.5 + options.marginX;
-      item.y = cHeight - (unit.y * item.value + options.marginY * 3);
+      //API에서 음수가 올 때를 대비해서 절대값처리
+      item.y = cHeight - (unit.y * Math.abs(item.value) + options.marginY * 3);
     });
     dataTable.slice(0, -1).forEach((item, index) => {
       drawLine(ctx, options, item, dataTable[index + 1]);

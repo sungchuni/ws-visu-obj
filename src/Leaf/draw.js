@@ -17,7 +17,7 @@ export default function draw() {
   const shoot = () => {
     ctx.clearRect(0, 0, clientRect.width, clientRect.height);
     ctx.lineWidth = options.lineWidth;
-    drawTitle(ctx, options, { x: clientRect.width * 0.5, y: options.marginY });
+    drawTitle(ctx, options, clientRect);
     drawAxis(ctx, options, safeArea);
     dataTable.forEach((item, index) => {
       item.x = unit.x * index + unit.x * 0.5 + options.marginX;
@@ -47,9 +47,9 @@ export default function draw() {
   }
 }
 
-function drawTitle(ctx, options, position) {
-  const { titleFontSize, fontStyle, title } = options;
-  const { x, y } = position;
+function drawTitle(ctx, options, clientRect) {
+  const { titleFontSize, fontStyle, title, marginY } = options;
+  const { x, y } = { x: clientRect.width * 0.5, y: marginY };
   ctx.font = `${titleFontSize}px ${fontStyle}`;
   ctx.textAlign = "center";
   ctx.fillStyle = ctx.strokeStyle = options.color || options.colorText;

@@ -30,6 +30,12 @@ module.exports = {
     ]
   },
   externals: {
+    gsap: {
+      commonjs: "gsap",
+      commonjs2: "gsap",
+      amd: "gsap",
+      root: "gsap"
+    },
     react: {
       commonjs: "react",
       commonjs2: "react",

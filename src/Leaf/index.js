@@ -3,10 +3,12 @@ import React from "react";
 import Canvas from "../Canvas";
 import draw from "./draw";
 
+import { COLOR } from "../constant";
+
 const DEFAULT_LEAF_OPTIONS = Object.freeze({
-  colorPoint: "#535353",
-  colorLine: "#535353",
-  colorText: "#535353",
+  colorPoint: COLOR,
+  colorLine: COLOR,
+  colorText: COLOR,
   title: "",
   titleFontSize: 12,
   subtitleFontSize: 12,

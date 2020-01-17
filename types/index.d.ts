@@ -3,7 +3,6 @@ import React from "react";
 export declare class Base<P> extends React.Component<P> {}
 declare namespace Base {
   interface Props {
-    data: object[];
     options: Options;
   }
   interface Options {
@@ -23,8 +22,7 @@ declare namespace Leaf {
     value: number;
     title: string;
   }
-  interface Options {
-    color?: string;
+  interface Options extends Base.Options {
     colorPoint?: string;
     colorLine?: string;
     colorText?: string;
@@ -33,8 +31,6 @@ declare namespace Leaf {
     subtitleFontSize?: number;
     annotationFontSize?: number;
     fontStyle?: string;
-    width?: number;
-    height?: number;
     marginX?: number;
     marginY?: number;
     gridAlpha?: number;
@@ -49,7 +45,7 @@ declare namespace Leaf {
 
 export declare class Line extends Base<Line.Props> {}
 declare namespace Line {
-  interface Props {}
+  interface Props extends Base.Props {}
 }
 
 export declare class Silk extends Base<Silk.Props> {}
@@ -59,7 +55,21 @@ declare namespace Silk {
 
 export declare class Sphere extends Base<Sphere.Props> {}
 declare namespace Sphere {
-  interface Props {}
+  interface Props extends Base.Props {
+    options: Options;
+  }
+  interface Options extends Base.Options {
+    colorPoint?: string;
+    colorLine?: string;
+    dotsQuantity?: number;
+    dotSize?: number;
+    sphereRadius?: number;
+    perspective?: number;
+    shadowSize?: number;
+    shadowOffset?: number;
+    shadowBlur?: number;
+    animationDuration?: number;
+  }
 }
 
 export declare class Tree extends Base<Tree.Props> {}

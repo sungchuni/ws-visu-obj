@@ -7,7 +7,7 @@ const DEFAULT_CANVAS_OPTIONS = {
 
 function Canvas(props, forwardCanvasCtx) {
   const { children, options } = props;
-  const attributes = {
+  const { width, height } = {
     width: options.width || DEFAULT_CANVAS_OPTIONS.width,
     height: options.height || DEFAULT_CANVAS_OPTIONS.height
   };
@@ -16,17 +16,17 @@ function Canvas(props, forwardCanvasCtx) {
       const ctx = canvas.getContext("2d");
       const scale = window.devicePixelRatio;
       if (scale > 1) {
-        canvas.style.width = `${options.width}px`;
-        canvas.style.height = `${options.height}px`;
-        canvas.width = options.width * scale;
-        canvas.height = options.height * scale;
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+        canvas.width = width * scale;
+        canvas.height = height * scale;
         ctx.scale(scale, scale);
       }
       forwardCanvasCtx(canvas, ctx);
     }
   }
   return (
-    <canvas ref={getRef} {...attributes}>
+    <canvas ref={getRef} width={width} height={height}>
       {children}
     </canvas>
   );

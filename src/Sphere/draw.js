@@ -59,8 +59,8 @@ function drawShadow(ctx, options, clientRect) {
     shadowBlur
   } = options;
   const { width, height } = clientRect;
-  const start = width * 0.5 - (shadowSize * 0.5 || sphereRadius * 0.25);
-  const end = start + (shadowSize || sphereRadius * 0.5);
+  const start = width * 0.5 - shadowSize * 0.5;
+  const end = start + shadowSize;
   const y = height * 0.5 + sphereRadius * 0.5 + shadowOffset;
   ctx.strokeStyle = color || colorLine || colorPoint;
   ctx.lineWidth = shadowBlur * 0.25;

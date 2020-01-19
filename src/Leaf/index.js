@@ -3,12 +3,14 @@ import React from "react";
 import Canvas from "../Canvas";
 import draw from "./draw";
 
-import { COLOR } from "../constant";
+import { COLOR, COLOR_MINOR } from "../constant";
 
 const DEFAULT_LEAF_OPTIONS = Object.freeze({
   colorPoint: COLOR,
   colorLine: COLOR,
   colorText: COLOR,
+  colorAxis: COLOR_MINOR,
+  colorGrid: COLOR_MINOR,
   title: "",
   titleFontSize: 12,
   subtitleFontSize: 12,
@@ -18,7 +20,6 @@ const DEFAULT_LEAF_OPTIONS = Object.freeze({
   height: 192,
   marginX: 24,
   marginY: 19.2,
-  gridAlpha: 0.2,
   pointSize: 7,
   lineWidth: 1,
   showTopAnnotation: false,

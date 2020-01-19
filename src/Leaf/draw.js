@@ -66,7 +66,7 @@ function drawTitle(ctx, options, clientRect) {
 }
 
 function drawAxis(ctx, options, safeArea) {
-  const { color, colorLine, marginX, marginY, gridAlpha } = options;
+  const { color, colorLine, colorAxis, marginX, marginY } = options;
   const { width, height } = safeArea;
   const [fromX, fromY, toX, toY] = [
     marginX,
@@ -74,14 +74,12 @@ function drawAxis(ctx, options, safeArea) {
     marginX + width,
     marginY * 2 + height
   ];
-  ctx.globalAlpha = gridAlpha;
-  ctx.fillStyle = ctx.strokeStyle = color || colorLine;
+  ctx.fillStyle = ctx.strokeStyle = colorAxis || color || colorLine;
   ctx.beginPath();
   ctx.moveTo(fromX, fromY);
   ctx.lineTo(fromX, toY);
   ctx.lineTo(toX, toY);
   ctx.stroke();
-  ctx.globalAlpha = 1;
 }
 
 function drawLine(ctx, options, fromItem, toItem) {
@@ -109,18 +107,16 @@ function drawSubtitle(ctx, options, safeArea, item) {
 }
 
 function drawGrid(ctx, options, safeArea, item) {
-  const { color, colorLine, marginY, gridAlpha } = options;
+  const { color, colorLine, colorGrid, marginY } = options;
   const { height } = safeArea;
   const [fromX, fromY] = [item.x, marginY * 2 + height];
   const { x: toX, y: toY } = item;
   if (toY < fromY) {
-    ctx.globalAlpha = gridAlpha;
-    ctx.fillStyle = ctx.strokeStyle = color || colorLine;
+    ctx.fillStyle = ctx.strokeStyle = colorGrid || color || colorLine;
     ctx.beginPath();
     ctx.moveTo(fromX, fromY);
     ctx.lineTo(toX, toY);
     ctx.stroke();
-    ctx.globalAlpha = 1;
   }
 }
 

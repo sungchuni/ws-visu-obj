@@ -1,6 +1,8 @@
 import Dot from "./Dot";
 import geo from "./geo";
 
+import { drawShadow } from "../trait";
+
 export default function draw() {
   const { options, canvas, ctx } = this;
   const clientRect = canvas.getBoundingClientRect();
@@ -46,28 +48,4 @@ function drawSphere(ctx, options, clientRect, dot) {
   ctx.beginPath();
   ctx.arc(h, v, dotSize * s, 0, Math.PI * 2);
   ctx.fill();
-}
-
-function drawShadow(ctx, options, clientRect) {
-  const {
-    color,
-    colorPoint,
-    colorLine,
-    sphereRadius,
-    shadowSize,
-    shadowOffset,
-    shadowBlur
-  } = options;
-  const { width, height } = clientRect;
-  const start = width * 0.5 - shadowSize * 0.5;
-  const end = start + shadowSize;
-  const y = height * 0.5 + sphereRadius * 0.5 + shadowOffset;
-  ctx.strokeStyle = color || colorLine || colorPoint;
-  ctx.lineWidth = shadowBlur * 0.25;
-  ctx.beginPath();
-  ctx.moveTo(start, y);
-  ctx.lineTo(end, y);
-  ctx.filter = `blur(${shadowBlur}px)`;
-  ctx.stroke();
-  ctx.filter = "none";
 }

@@ -25,7 +25,6 @@ const DEFAULT_LINE_OPTIONS = Object.freeze({
   lineWidth: 1,
   hasShadow: true,
   shadowSize: 512 * 0.6,
-  shadowOffset: 0,
   shadowBlur: 10,
   animationDuration: 1500,
   hasAnimationHorizontal: true,

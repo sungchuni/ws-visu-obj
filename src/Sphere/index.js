@@ -15,7 +15,6 @@ const DEFAULT_SPHERE_OPTIONS = Object.freeze({
   sphereRadius: 240,
   perspective: 0.8,
   shadowSize: 80,
-  shadowOffset: 0,
   shadowBlur: 16,
   animationDuration: 24000
 });

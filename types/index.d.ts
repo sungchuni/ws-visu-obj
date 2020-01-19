@@ -73,7 +73,6 @@ declare namespace Line {
     lineWidth?: number;
     hasShadow?: boolean;
     shadowSize?: number;
-    shadowOffset?: number;
     shadowBlur?: number;
     animationDuration?: number;
     hasAnimationHorizontal?: boolean;
@@ -83,7 +82,14 @@ declare namespace Line {
 
 export declare class Silk extends Base<Silk.Props> {}
 declare namespace Silk {
-  interface Props {}
+  interface Props extends Base.Props {
+    data: Data[][];
+    options: Options;
+  }
+  interface Data {
+    title: string;
+  }
+  interface Options extends Base.Options {}
 }
 
 export declare class Sphere extends Base<Sphere.Props> {}
@@ -99,7 +105,6 @@ declare namespace Sphere {
     sphereRadius?: number;
     perspective?: number;
     shadowSize?: number;
-    shadowOffset?: number;
     shadowBlur?: number;
     animationDuration?: number;
   }

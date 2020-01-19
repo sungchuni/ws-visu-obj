@@ -1,16 +1,9 @@
 export function drawShadow(ctx, options, clientRect) {
-  const {
-    color,
-    colorPoint,
-    colorLine,
-    shadowSize,
-    shadowOffset,
-    shadowBlur
-  } = options;
+  const { color, colorPoint, colorLine, shadowSize, shadowBlur } = options;
   const { width, height } = clientRect;
   const start = width * 0.5 - shadowSize * 0.5;
   const end = start + shadowSize;
-  const y = height - shadowOffset - shadowBlur * 2;
+  const y = height - shadowBlur * 1.5;
   ctx.strokeStyle = color || colorLine || colorPoint;
   ctx.lineWidth = shadowBlur * 0.2;
   ctx.lineCap = "round";

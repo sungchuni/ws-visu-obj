@@ -8,7 +8,7 @@ export default function draw() {
   const clientRect = canvas.getBoundingClientRect();
   const dataTable = data.map(row =>
     Array.isArray(row)
-      ? row.map((item, index) => new Point(item, options, !!index))
+      ? row.map(item => new Point(item, options))
       : new Point(row, options)
   );
   const dataTables = (dataTable.every(point => point instanceof Point)
@@ -61,14 +61,12 @@ export default function draw() {
           drawPoint(ctx, options, item, maskingPoint);
         });
     });
-    //그림자가 원래 있는 방식으로 변경하기 위해 순서 바꿈 
     options.hasShadow &&
-        !options.hasAxis &&
-        drawShadow(ctx, options, clientRect);
+      !options.hasAxis &&
+      drawShadow(ctx, options, clientRect);
     if (flattenedDataTable.every(({ done }) => done)) {
       drawTitle(ctx, options, clientRect);
       options.hasAxis && drawAxis(ctx, options, safeArea);
-      
     } else {
       window.requestAnimationFrame(shoot);
     }

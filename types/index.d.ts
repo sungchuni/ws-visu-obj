@@ -9,6 +9,7 @@ declare namespace Base {
     color?: string;
     width?: number;
     height?: number;
+    animationDuration?: number;
   }
 }
 
@@ -39,7 +40,6 @@ declare namespace Leaf {
     lineWidth?: number;
     showTopAnnotation?: boolean;
     isPercentage?: boolean;
-    animationDuration?: number;
     isScrollObserved?: boolean;
   }
 }
@@ -74,7 +74,6 @@ declare namespace Line {
     hasShadow?: boolean;
     shadowSize?: number;
     shadowBlur?: number;
-    animationDuration?: number;
     hasAnimationHorizontal?: boolean;
     isScrollObserved?: boolean;
   }
@@ -106,7 +105,6 @@ declare namespace Sphere {
     perspective?: number;
     shadowSize?: number;
     shadowBlur?: number;
-    animationDuration?: number;
   }
 }
 

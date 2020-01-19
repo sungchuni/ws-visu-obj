@@ -87,8 +87,23 @@ declare namespace Silk {
   }
   interface Data {
     title: string;
+    isMinor?: boolean;
   }
-  interface Options extends Base.Options {}
+  interface Options extends Base.Options {
+    colorPoint?: string;
+    colorLine?: string;
+    colorText?: string;
+    colorMinor?: string;
+    fontSize?: string;
+    fontStyle?: string;
+    marginX?: number;
+    marginY?: number;
+    pointSize?: number;
+    lineWidth?: number;
+    shadowSize?: number;
+    shadowBlur?: number;
+    isScrollObserved?: boolean;
+  }
 }
 
 export declare class Sphere extends Base<Sphere.Props> {}

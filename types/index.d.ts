@@ -45,7 +45,39 @@ declare namespace Leaf {
 
 export declare class Line extends Base<Line.Props> {}
 declare namespace Line {
-  interface Props extends Base.Props {}
+  interface Props extends Base.Props {
+    data: Data[][] | Data[];
+    options: Options;
+  }
+  interface Data {
+    value: number;
+    title: string;
+    subtitle: string;
+  }
+  interface Options extends Base.Options {
+    colorPoint?: string;
+    colorLine?: string;
+    colorText?: string;
+    colorAxis?: string;
+    colorMinor?: string;
+    title?: string;
+    titleFontSize?: number;
+    annotationTitleFontSize?: number;
+    annotationSubtitleFontSize?: number;
+    fontStyle?: string;
+    marginX?: number;
+    marginY?: number;
+    hasAxis?: boolean;
+    pointSize?: number;
+    lineWidth?: number;
+    hasShadow?: boolean;
+    shadowSize?: number;
+    shadowOffset?: number;
+    shadowBlur?: number;
+    animationDuration?: number;
+    hasAnimationHorizontal?: boolean;
+    isScrollObserved?: boolean;
+  }
 }
 
 export declare class Silk extends Base<Silk.Props> {}

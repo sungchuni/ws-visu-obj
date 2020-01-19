@@ -16,7 +16,6 @@ export default function draw() {
   };
   const shoot = () => {
     ctx.clearRect(0, 0, clientRect.width, clientRect.height);
-    ctx.lineWidth = options.lineWidth;
     drawTitle(ctx, options, clientRect);
     drawAxis(ctx, options, safeArea);
     dataTable
@@ -66,7 +65,7 @@ function drawTitle(ctx, options, clientRect) {
 }
 
 function drawAxis(ctx, options, safeArea) {
-  const { color, colorLine, colorAxis, marginX, marginY } = options;
+  const { color, colorLine, colorAxis, marginX, marginY, lineWidth } = options;
   const { width, height } = safeArea;
   const [fromX, fromY, toX, toY] = [
     marginX,
@@ -74,6 +73,7 @@ function drawAxis(ctx, options, safeArea) {
     marginX + width,
     marginY * 2 + height
   ];
+  ctx.lineWidth = lineWidth;
   ctx.fillStyle = ctx.strokeStyle = colorAxis || color || colorLine;
   ctx.beginPath();
   ctx.moveTo(fromX, fromY);
@@ -84,9 +84,10 @@ function drawAxis(ctx, options, safeArea) {
 
 function drawLine(ctx, options, fromItem, toItem) {
   if (toItem) {
-    const { color, colorLine } = options;
+    const { color, colorLine, lineWidth } = options;
     const { x: fromX, y: fromY } = fromItem;
     const { x: toX, y: toY } = toItem;
+    ctx.lineWidth = lineWidth;
     ctx.fillStyle = ctx.strokeStyle = color || colorLine;
     ctx.beginPath();
     ctx.moveTo(fromX, fromY);
@@ -107,11 +108,12 @@ function drawSubtitle(ctx, options, safeArea, item) {
 }
 
 function drawGrid(ctx, options, safeArea, item) {
-  const { color, colorLine, colorGrid, marginY } = options;
+  const { color, colorLine, colorGrid, marginY, lineWidth } = options;
   const { height } = safeArea;
   const [fromX, fromY] = [item.x, marginY * 2 + height];
   const { x: toX, y: toY } = item;
   if (toY < fromY) {
+    ctx.lineWidth = lineWidth;
     ctx.fillStyle = ctx.strokeStyle = colorGrid || color || colorLine;
     ctx.beginPath();
     ctx.moveTo(fromX, fromY);

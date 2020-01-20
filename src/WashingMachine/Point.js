@@ -19,7 +19,7 @@ export default class Point {
     this.s = 0;
     const duration = animationDuration / 1000;
     gsap.to(this, duration, {
-      theta: theta + Math.PI * 2,
+      theta: theta + Math.PI * (hIndex % 2 ? 4 : 2),
       ease: "linear",
       repeat: -1
     });

@@ -108,12 +108,9 @@ declare namespace Silk {
     marginY?: number;
     pointSize?: number;
     lineWidth?: number;
-    shadowColor?: number;
-    shadowSize?: number;
-    shadowBlur?: number;
-    shadowOffset?: number;
     isScrollObserved?: boolean;
   }
+  interface Options extends Shadow.Options {}
 }
 
 export declare class Sphere extends Base<Sphere.Props> {}

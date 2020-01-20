@@ -1,7 +1,7 @@
 import React from "react";
 
-export declare class Base<P> extends React.Component<P> {}
 declare namespace Base {
+  class Component<P> extends React.Component<P> {}
   interface Props {
     options: Options;
   }
@@ -23,7 +23,7 @@ declare namespace Shadow {
   }
 }
 
-export declare class Leaf extends Base<Leaf.Props> {}
+export declare class Leaf extends Base.Component<Leaf.Props> {}
 declare namespace Leaf {
   interface Props extends Base.Props {
     data: Data[];
@@ -54,7 +54,7 @@ declare namespace Leaf {
   }
 }
 
-export declare class Line extends Base<Line.Props> {}
+export declare class Line extends Base.Component<Line.Props> {}
 declare namespace Line {
   interface Props extends Base.Props {
     data: Data[][] | Data[];
@@ -87,7 +87,7 @@ declare namespace Line {
   interface Options extends Shadow.Options {}
 }
 
-export declare class Silk extends Base<Silk.Props> {}
+export declare class Silk extends Base.Component<Silk.Props> {}
 declare namespace Silk {
   interface Props extends Base.Props {
     data: Data[][];
@@ -116,7 +116,7 @@ declare namespace Silk {
   }
 }
 
-export declare class Sphere extends Base<Sphere.Props> {}
+export declare class Sphere extends Base.Component<Sphere.Props> {}
 declare namespace Sphere {
   interface Props extends Base.Props {
     options: Options;
@@ -135,12 +135,12 @@ declare namespace Sphere {
   }
 }
 
-export declare class Tree extends Base<Tree.Props> {}
+export declare class Tree extends Base.Component<Tree.Props> {}
 declare namespace Tree {
   interface Props {}
 }
 
-export declare class WashingMachine extends Base<WashingMachine.Props> {}
+export declare class WashingMachine extends Base.Component<WashingMachine.Props> {}
 declare namespace WashingMachine {
   interface Props {}
 }

@@ -39,7 +39,7 @@ export default function draw() {
           drawPoint(ctx, options, item);
         });
     });
-    drawShadow(ctx, options, clientRect);
+    options.hasShadow && drawShadow(ctx, options, clientRect);
     if (!flattenedDataTable.every(({ done }) => done)) {
       window.requestAnimationFrame(shoot);
     }

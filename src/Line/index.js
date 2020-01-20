@@ -3,7 +3,7 @@ import React from "react";
 import Canvas from "../Canvas";
 import draw from "./draw";
 
-import { COLOR, COLOR_MINOR } from "../constant";
+import { COLOR, COLOR_MINOR, COLOR_SHADOW, SHADOW_OFFSET } from "../constant";
 
 const DEFAULT_LINE_OPTIONS = Object.freeze({
   colorPoint: COLOR,
@@ -23,12 +23,14 @@ const DEFAULT_LINE_OPTIONS = Object.freeze({
   hasAxis: false,
   pointSize: 7,
   lineWidth: 1,
-  hasShadow: true,
-  shadowSize: 512 * 0.6,
-  shadowBlur: 10,
   animationDuration: 1500,
   hasAnimationHorizontal: true,
-  isScrollObserved: true
+  isScrollObserved: true,
+  hasShadow: true,
+  shadowColor: COLOR_SHADOW,
+  shadowSize: 512 * 0.6,
+  shadowBlur: 10,
+  shadowOffset: SHADOW_OFFSET
 });
 
 export default class Line extends React.Component {

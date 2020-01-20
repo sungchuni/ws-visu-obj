@@ -3,7 +3,7 @@ import React from "react";
 import Canvas from "../Canvas";
 import draw from "./draw";
 
-import { COLOR, COLOR_MINOR } from "../constant";
+import { COLOR, COLOR_MINOR, COLOR_SHADOW, SHADOW_OFFSET } from "../constant";
 
 const DEFAULT_SILK_OPTIONS = Object.freeze({
   colorPoint: COLOR,
@@ -18,10 +18,13 @@ const DEFAULT_SILK_OPTIONS = Object.freeze({
   marginY: 64,
   pointSize: 7,
   lineWidth: 1,
+  animationDuration: 1500,
+  isScrollObserved: true,
+  hasShadow: true,
+  shadowColor: COLOR_SHADOW,
   shadowSize: (640 - 96 * 2) * 0.9,
   shadowBlur: 12,
-  animationDuration: 1500,
-  isScrollObserved: true
+  shadowOffset: SHADOW_OFFSET
 });
 
 export default class Silk extends React.Component {

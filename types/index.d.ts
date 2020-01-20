@@ -13,6 +13,16 @@ declare namespace Base {
   }
 }
 
+declare namespace Shadow {
+  interface Options {
+    hasShadow?: boolean;
+    shadowColor?: number;
+    shadowSize?: number;
+    shadowBlur?: number;
+    shadowOffset?: number;
+  }
+}
+
 export declare class Leaf extends Base<Leaf.Props> {}
 declare namespace Leaf {
   interface Props extends Base.Props {
@@ -71,13 +81,10 @@ declare namespace Line {
     hasAxis?: boolean;
     pointSize?: number;
     lineWidth?: number;
-    hasShadow?: boolean;
-    shadowSize?: number;
-    shadowBlur?: number;
-    shadowOffset?: number;
     hasAnimationHorizontal?: boolean;
     isScrollObserved?: boolean;
   }
+  interface Options extends Shadow.Options {}
 }
 
 export declare class Silk extends Base<Silk.Props> {}
@@ -101,6 +108,7 @@ declare namespace Silk {
     marginY?: number;
     pointSize?: number;
     lineWidth?: number;
+    shadowColor?: number;
     shadowSize?: number;
     shadowBlur?: number;
     shadowOffset?: number;
@@ -120,6 +128,7 @@ declare namespace Sphere {
     dotSize?: number;
     sphereRadius?: number;
     perspective?: number;
+    shadowColor?: number;
     shadowSize?: number;
     shadowBlur?: number;
     shadowOffset?: number;

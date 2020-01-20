@@ -32,7 +32,7 @@ export default function draw() {
       .forEach(dot => {
         drawSphere(ctx, options, clientRect, dot);
       });
-    drawShadow(ctx, options, clientRect);
+    options.hasShadow && drawShadow(ctx, options, clientRect);
     window.requestAnimationFrame(shoot);
   };
   if (dataTable.length) {

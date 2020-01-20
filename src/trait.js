@@ -1,18 +1,13 @@
+import { TRAIT_DRAW_SHADOW_BEZIER_OFFSET } from "./constant";
+
 export function drawShadow(ctx, options, clientRect) {
-  const {
-    color,
-    colorPoint,
-    colorLine,
-    shadowSize,
-    shadowBlur,
-    shadowOffset = 0
-  } = options;
+  const { shadowColor, shadowSize, shadowBlur, shadowOffset } = options;
   const { width, height } = clientRect;
   const start = width * 0.5 - shadowSize * 0.5;
   const end = start + shadowSize;
-  const y = height - shadowBlur * 2 - shadowOffset;
-  const bezierOffset = shadowSize * 0.125;
-  ctx.fillStyle = color || colorLine || colorPoint;
+  const y = height - shadowBlur * 3 - shadowOffset;
+  const bezierOffset = TRAIT_DRAW_SHADOW_BEZIER_OFFSET;
+  ctx.fillStyle = shadowColor;
   ctx.beginPath();
   ctx.moveTo(start, y);
   ctx.bezierCurveTo(start, y - bezierOffset, end, y - bezierOffset, end, y);

@@ -3,7 +3,7 @@ import React from "react";
 import Canvas from "../Canvas";
 import draw from "./draw";
 
-import { COLOR } from "../constant";
+import { COLOR, COLOR_SHADOW, SHADOW_OFFSET } from "../constant";
 
 const DEFAULT_SPHERE_OPTIONS = Object.freeze({
   colorPoint: COLOR,
@@ -14,9 +14,12 @@ const DEFAULT_SPHERE_OPTIONS = Object.freeze({
   dotSize: 1,
   sphereRadius: 240,
   perspective: 0.8,
+  animationDuration: 24000,
+  hasShadow: true,
+  shadowColor: COLOR_SHADOW,
   shadowSize: 80,
   shadowBlur: 16,
-  animationDuration: 24000
+  shadowOffset: SHADOW_OFFSET
 });
 
 export default class Sphere extends React.Component {

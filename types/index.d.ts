@@ -74,6 +74,7 @@ declare namespace Line {
     hasShadow?: boolean;
     shadowSize?: number;
     shadowBlur?: number;
+    shadowOffset?: number;
     hasAnimationHorizontal?: boolean;
     isScrollObserved?: boolean;
   }
@@ -102,6 +103,7 @@ declare namespace Silk {
     lineWidth?: number;
     shadowSize?: number;
     shadowBlur?: number;
+    shadowOffset?: number;
     isScrollObserved?: boolean;
   }
 }
@@ -120,6 +122,7 @@ declare namespace Sphere {
     perspective?: number;
     shadowSize?: number;
     shadowBlur?: number;
+    shadowOffset?: number;
   }
 }
 

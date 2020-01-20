@@ -31,7 +31,7 @@ export default function draw() {
           item.y = unit.y * vIndex + marginY + (unit.y + pointSize) * 0.5;
           return item;
         })
-        .forEach((item, itemIndex) => {
+        .forEach(item => {
           nextCol.forEach(nextColItem => {
             drawLine(ctx, options, item, nextColItem);
           });

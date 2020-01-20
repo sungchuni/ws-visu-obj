@@ -48,7 +48,7 @@ export default function draw() {
     dataTables.forEach((dataTable, dataTableIndex) => {
       dataTable
         .map((item, itemIndex) => {
-          const { marginX, marginY } = options;
+          const { marginX } = options;
           item.x = unit.x * itemIndex + unit.x * 0.5 + marginX;
           item.y =
             clientRect.height - (unit.y * Math.abs(item.value) + axisYMarginY);
@@ -156,7 +156,6 @@ function drawAnnotation(ctx, options, item, maskingPoint) {
     annotationTitleFontSize,
     annotationSubtitleFontSize,
     fontStyle,
-    marginY,
     pointSize,
     hasAnimationHorizontal
   } = options;

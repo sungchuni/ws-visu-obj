@@ -9,7 +9,7 @@ function Canvas(props, forwardCanvasCtx) {
   const { children, options } = props;
   const { width, height } = {
     width: Math.min(
-      window.innerWidth,
+      window.innerWidth * 0.9,
       options.width || DEFAULT_CANVAS_OPTIONS.width
     ),
     height: options.height || DEFAULT_CANVAS_OPTIONS.height

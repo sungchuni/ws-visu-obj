@@ -9,10 +9,10 @@ export default function geo() {
     })
     .map(function getPhis(theta, thetaIndex) {
       const maxPhis = (thetasLength - 1) * (Math.PI * 0.5);
-      const phisLength = Math.round(
+      let phisLength = theta % Math.PI ? Math.round(
         Math.sin(theta) * (maxPhis * (Math.PI / 2)) +
           maxPhis * (Math.abs(thetaIndex / (thetasLength - 1) - 0.5) * 2)
-      );
+      ) : 2;
       const phis = Array(phisLength)
         .fill(null)
         .map(function getPhi(noop, phiIndex) {

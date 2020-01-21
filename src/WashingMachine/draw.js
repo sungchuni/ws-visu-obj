@@ -68,13 +68,11 @@ export default function draw() {
 
 function drawLine(ctx, options, safeArea, fromItem, toItem) {
   if (toItem) {
-    const { color, colorLine, lineWidth } = options;
+    const { color, colorLine, lineWidth, alphaWeight } = options;
     const { z: fromZ, h: fromH, v: fromV } = fromItem;
     const { z: toZ, h: toH, v: toV } = toItem;
     if (toZ && toH && toV) {
-      const meanZ = (fromZ + toZ + (fromZ < toZ ? toZ : fromZ)) * 0.5;
-      ctx.globalAlpha = Math.abs(1 - meanZ / safeArea.width);
-      console.log(ctx.globalAlpha);
+      ctx.globalAlpha = Math.max(1 - ((fromZ + toZ) * .5 * alphaWeight) / safeArea.width, 0);
       ctx.lineWidth = lineWidth;
       ctx.fillStyle = ctx.strokeStyle = color || colorLine;
       ctx.beginPath();
@@ -86,7 +84,14 @@ function drawLine(ctx, options, safeArea, fromItem, toItem) {
 }
 
 function drawAnnotation(ctx, options, safeArea, item, dataTable) {
-  const { color, colorText, fontSize, fontStyle, pointSize } = options;
+  const {
+    color,
+    colorText,
+    fontSize,
+    fontStyle,
+    pointSize,
+    alphaWeight
+  } = options;
   const { title, hIndex, z, h, v, s } = item;
   const { length } = dataTable;
   const safeMarginX = pointSize * 2;
@@ -107,7 +112,7 @@ function drawAnnotation(ctx, options, safeArea, item, dataTable) {
       top: -safeMarginY,
       right: computedFontSize * 0.33
     }[textPosition];
-  ctx.globalAlpha = Math.abs(1 - z / safeArea.width);
+  ctx.globalAlpha = Math.max(1 - (z * alphaWeight) / safeArea.width, 0);
   ctx.fillStyle = ctx.strokeStyle = color || colorText;
   ctx.textAlign = textAlign;
   ctx.font = `${computedFontSize}px ${fontStyle}`;
@@ -115,9 +120,9 @@ function drawAnnotation(ctx, options, safeArea, item, dataTable) {
 }
 
 function drawPoint(ctx, options, safeArea, item) {
-  const { color, colorPoint, pointSize } = options;
+  const { color, colorPoint, pointSize, alphaWeight } = options;
   const { z, h, v, s } = item;
-  ctx.globalAlpha = Math.abs(1 - z / safeArea.width);
+  ctx.globalAlpha = Math.max(1 - (z * alphaWeight) / safeArea.width, 0);
   ctx.fillStyle = ctx.strokeStyle = color || colorPoint;
   ctx.beginPath();
   ctx.arc(h, v, pointSize * s, 0, Math.PI * 2);

@@ -159,6 +159,7 @@ declare namespace WashingMachine {
     pointSize?: number;
     lineWidth?: number;
     perspective?: number;
+    alphaWeight?: number;
   }
   interface Options extends Shadow.Options {}
 }

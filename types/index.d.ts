@@ -125,11 +125,8 @@ declare namespace Sphere {
     dotSize?: number;
     sphereRadius?: number;
     perspective?: number;
-    shadowColor?: number;
-    shadowSize?: number;
-    shadowBlur?: number;
-    shadowOffset?: number;
   }
+  interface Options extends Shadow.Options {}
 }
 
 export declare class Tree extends Base<Tree.Props> {}

@@ -131,7 +131,18 @@ declare namespace Sphere {
 
 export declare class Tree extends Base<Tree.Props> {}
 declare namespace Tree {
-  interface Props extends Base.Props {}
+  interface Props extends Base.Props {
+    options: Options;
+  }
+  interface Options extends Base.Options {
+    colorPoint?: string;
+    colorLine?: string;
+    dotsQuantity?: number;
+    dotSize?: number;
+    treeHeight?: number;
+    perspective?: number;
+  }
+  interface Options extends Shadow.Options {}
 }
 
 export declare class WashingMachine extends Base<WashingMachine.Props> {}

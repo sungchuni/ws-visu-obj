@@ -1,3 +1,4 @@
+import * as _ from "lodash-es";
 import React from "react";
 
 import Canvas from "../Canvas";
@@ -36,6 +37,7 @@ export default class Leaf extends React.Component {
     this.canvas = null;
     this.ctx = null;
     this.draw = draw;
+    this.handleResize = _.debounce(this.handleResize.bind(this), 400);
     this.receiveCanvasCtx = this.receiveCanvasCtx.bind(this);
     if (this.options.isScrollObserved) {
       this.intersectionObserver = new window.IntersectionObserver(
@@ -43,6 +45,16 @@ export default class Leaf extends React.Component {
         { rootMargin: `-${this.options.marginY}px 0px` }
       );
     }
+  }
+  componentDidMount() {
+    window.addEventListener("resize", this.handleResize);
+  }
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize);
+  }
+  handleResize() {
+    this.forceUpdate();
+    this.draw();
   }
   receiveCanvasCtx(canvas, ctx) {
     this.canvas = canvas;

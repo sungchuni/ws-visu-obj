@@ -8,7 +8,10 @@ const DEFAULT_CANVAS_OPTIONS = {
 function Canvas(props, forwardCanvasCtx) {
   const { children, options } = props;
   const { width, height } = {
-    width: options.width || DEFAULT_CANVAS_OPTIONS.width,
+    width: Math.min(
+      window.innerWidth,
+      options.width || DEFAULT_CANVAS_OPTIONS.width
+    ),
     height: options.height || DEFAULT_CANVAS_OPTIONS.height
   };
   function getRef(canvas) {

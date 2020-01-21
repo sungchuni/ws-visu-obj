@@ -1,6 +1,4 @@
-import React from "react";
-
-import Canvas from "../Canvas";
+import Base from "../Base";
 import draw from "./draw";
 
 import { COLOR, COLOR_MINOR, COLOR_SHADOW, SHADOW_OFFSET } from "../constant";
@@ -27,34 +25,11 @@ const DEFAULT_SILK_OPTIONS = Object.freeze({
   shadowOffset: SHADOW_OFFSET
 });
 
-export default class Silk extends React.Component {
+export default class Silk extends Base {
   constructor(props) {
     super(props);
     this.data = this.props.data || [];
     this.options = Object.assign({}, DEFAULT_SILK_OPTIONS, this.props.options);
-    this.canvas = null;
-    this.ctx = null;
-    this.draw = draw;
-    this.receiveCanvasCtx = this.receiveCanvasCtx.bind(this);
-    if (this.options.isScrollObserved) {
-      this.intersectionObserver = new window.IntersectionObserver(
-        this.intersectionCallback.bind(this),
-        { rootMargin: `-${this.options.marginY}px 0px` }
-      );
-    }
-  }
-  receiveCanvasCtx(canvas, ctx) {
-    this.canvas = canvas;
-    this.ctx = ctx;
-    this.intersectionObserver ? this.observeCanvas(canvas) : this.draw();
-  }
-  intersectionCallback(entries) {
-    entries.forEach(entry => entry.isIntersecting && this.draw());
-  }
-  observeCanvas(canvas) {
-    this.intersectionObserver.observe(canvas);
-  }
-  render() {
-    return <Canvas ref={this.receiveCanvasCtx} options={this.options}></Canvas>;
+    this.draw = draw.bind(this);
   }
 }

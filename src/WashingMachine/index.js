@@ -1,6 +1,4 @@
-import React from "react";
-
-import Canvas from "../Canvas";
+import Base from "../Base";
 import draw from "./draw";
 
 import { COLOR, COLOR_SHADOW, SHADOW_OFFSET } from "../constant";
@@ -26,7 +24,7 @@ const DEFAULT_WASHING_MACHINE_OPTIONS = Object.freeze({
   shadowOffset: SHADOW_OFFSET
 });
 
-export default class WashingMachine extends React.Component {
+export default class WashingMachine extends Base {
   constructor(props) {
     super(props);
     this.data = this.props.data || [];
@@ -35,17 +33,6 @@ export default class WashingMachine extends React.Component {
       DEFAULT_WASHING_MACHINE_OPTIONS,
       this.props.options
     );
-    this.canvas = null;
-    this.ctx = null;
-    this.draw = draw;
-    this.receiveCanvasCtx = this.receiveCanvasCtx.bind(this);
-  }
-  receiveCanvasCtx(canvas, ctx) {
-    this.canvas = canvas;
-    this.ctx = ctx;
-    this.draw();
-  }
-  render() {
-    return <Canvas ref={this.receiveCanvasCtx} options={this.options}></Canvas>;
+    this.draw = draw.bind(this);
   }
 }

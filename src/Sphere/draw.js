@@ -96,7 +96,7 @@ function drawVerticalLine(ctx, options, clientRect, dot, nextDots) {
 function drawSphere(ctx, options, clientRect, dot) {
   const { color, colorPoint, dotSize } = options;
   const { z, v, h, s } = dot;
-  ctx.globalAlpha = Math.abs((1 - z) / clientRect.width);
+  ctx.globalAlpha = Math.abs(1 - (z / clientRect.width));
   ctx.fillStyle = color || colorPoint;
   ctx.beginPath();
   ctx.arc(h, v, dotSize * s, 0, Math.PI * 2);

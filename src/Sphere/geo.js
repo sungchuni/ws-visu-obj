@@ -7,12 +7,12 @@ export default function geo() {
     .map(function getTheta(noop, index) {
       return Math.PI * (index / (thetasLength - 1));
     })
-    .map(function getPhis(theta, thetaIndex) {
+    .map(function getPhis(theta) {
       const maxPhis = (thetasLength - 1) * (Math.PI * 0.5);
-      let phisLength = theta % Math.PI ? Math.round(
-        Math.sin(theta) * (maxPhis * (Math.PI / 2)) +
-          maxPhis * (Math.abs(thetaIndex / (thetasLength - 1) - 0.5) * 2)
-      ) : 2;
+      let phisLength =
+        theta % Math.PI
+          ? Math.round(Math.sin(theta) * (maxPhis * (Math.PI / 2)))
+          : 2;
       const phis = Array(phisLength)
         .fill(null)
         .map(function getPhi(noop, phiIndex) {

@@ -63,7 +63,13 @@ declare namespace Line {
   interface Data {
     value: number;
     title: string;
-    subtitle: string;
+    subtitle?: string;
+    countUp?: CountUp;
+  }
+  interface CountUp {
+    start: number;
+    end: number;
+    suffix: string;
   }
   interface Options extends Base.Options {
     colorPoint?: string;

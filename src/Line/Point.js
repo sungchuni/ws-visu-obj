@@ -1,9 +1,9 @@
 import { gsap } from "gsap";
 
 export default class Point {
-  constructor({ title, subtitle, value }, { animationDuration }) {
+  constructor({ value, title, subtitle, countUp }, { animationDuration }) {
     this.title = title;
-    this.subtitle = subtitle;
+    this.subtitle = subtitle || "";
     this.value = 0;
     this.x = 0;
     this.y = 0;
@@ -15,5 +15,21 @@ export default class Point {
       value,
       onComplete: () => void (this.done = true)
     });
+    if (countUp) {
+      const { start, end, suffix } = countUp;
+      this.countUp = {
+        start,
+        end: start,
+        suffix
+      };
+      gsap.to(this.countUp, duration, {
+        ease: "power2.inOut",
+        end,
+        onUpdate: () =>
+          void (this.subtitle = `${Number(
+            (this.countUp.end || 0).toFixed(0)
+          ).toLocaleString()}${suffix}`)
+      });
+    }
   }
 }

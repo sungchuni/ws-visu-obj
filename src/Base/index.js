@@ -20,6 +20,10 @@ export default class Base extends React.Component {
       this.resizeCallback.bind(this),
       RESIZE_WAIT
     );
+    this.state = {
+      innerWidth: window.innerWidth,
+      innerHeight: window.innerHeight
+    };
   }
   componentWillUnmount() {
     window.removeEventListener("resize", this.resizeCallback);
@@ -47,8 +51,11 @@ export default class Base extends React.Component {
     }
   }
   resizeCallback() {
-    this.forceUpdate();
-    this.draw();
+    const { innerWidth, innerHeight } = window;
+    if (this.state.innerWidth !== innerWidth) {
+      this.setState({ innerWidth, innerHeight });
+      this.draw();
+    }
   }
   render() {
     return <Canvas ref={this.receiveCanvasCtx} options={this.options}></Canvas>;

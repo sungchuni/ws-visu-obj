@@ -88,7 +88,11 @@ function drawAnnotation(ctx, options, item, dataTable) {
   ];
   const titleX =
     x + { left: -safeMarginX, top: 0, right: safeMarginX }[textPosition];
-  const titleY = y + { left: 0, top: -safeMarginY, right: 0 }[textPosition];
+  const titleY =
+    y +
+    { left: fontSize * 0.33, top: -safeMarginY, right: fontSize * 0.33 }[
+      textPosition
+    ];
   ctx.fillStyle = ctx.strokeStyle = isMinor
     ? colorMinor || color
     : color || colorText;

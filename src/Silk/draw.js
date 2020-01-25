@@ -4,10 +4,10 @@ import { drawShadow } from "../trait";
 export default function draw() {
   const { data, options, canvas, ctx } = this;
   const clientRect = canvas.getBoundingClientRect();
-  const dataTable = data.map((row, hIndex) =>
-    row.map(
+  const dataTable = data.map((col, hIndex, cols) =>
+    col.map(
       (item, vIndex) =>
-        new Point(Object.assign({}, item, { hIndex, vIndex }), options)
+        new Point(Object.assign({}, item, { hIndex, vIndex, cols }), options)
     )
   );
   const flattenedDataTable = [].concat(...dataTable);
@@ -40,9 +40,7 @@ export default function draw() {
         });
     });
     options.hasShadow && drawShadow(ctx, options, clientRect);
-    if (!flattenedDataTable.every(({ done }) => done)) {
-      window.requestAnimationFrame(shoot);
-    }
+    window.requestAnimationFrame(shoot);
   };
   if (flattenedDataTable.length) {
     window.requestAnimationFrame(shoot);

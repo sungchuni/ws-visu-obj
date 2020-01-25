@@ -1,7 +1,7 @@
 import { gsap } from "gsap";
 
 export default class Point {
-  constructor({ title, isMinor, hIndex, vIndex }, { animationDuration }) {
+  constructor({ title, isMinor, hIndex, vIndex, cols }, { animationDuration }) {
     this.title = title;
     this.isMinor = !!isMinor;
     this.hIndex = hIndex;
@@ -9,11 +9,20 @@ export default class Point {
     this.x = 0;
     this.y = 0;
     this.done = false;
+    const maxV = Math.max(...cols.map(({ length }) => length)) - 1;
     const duration = animationDuration / 1000;
-    gsap.to(this, duration, {
+    gsap.to(this, {
+      duration,
       ease: "power2.inOut",
-      vIndex: vIndex + Math.random() * 0.2,
-      onComplete: () => void (this.done = true)
+      vIndex,
+      onComplete: () => {
+        const tl = gsap.timeline({
+          repeat: -1,
+          defaults: { duration, ease: "power2.inOut" }
+        });
+        tl.to(this, { vIndex: maxV - vIndex });
+        tl.to(this, { vIndex });
+      }
     });
   }
 }

@@ -14,7 +14,7 @@ const DEFAULT_TREE_OPTIONS = Object.freeze({
   dotSize: 4,
   treeWidth: 360,
   treeHeight: 320,
-  animationDuration: 15000,
+  animationDuration: 1500,
   hasShadow: true,
   shadowColor: COLOR_SHADOW,
   shadowSize: 120,

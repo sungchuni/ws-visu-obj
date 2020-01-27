@@ -1,3 +1,5 @@
+import { gsap } from "gsap";
+
 import Leaf from "./Leaf";
 import gene from "./gene";
 import { drawShadow } from "../trait";
@@ -5,126 +7,70 @@ import { drawShadow } from "../trait";
 export default function draw() {
   const { options, canvas, ctx } = this;
   const clientRect = canvas.getBoundingClientRect();
-  const dataTable = gene.call(this);
-  const unit = options.treeHeight / dataTable.length;
-  const wholeLeaves = [];
-  const root = dataTable
-    .map((leaves, level) => {
-      return leaves.map(leaf => {
-        leaf.r =
-          level < 2 ? level * unit * 0.5 : getRandomRadius(unit) * Math.sqrt(2);
-        return new Leaf(leaf, options);
-      });
+  const leaves = gene()
+    .map(({ k, x, y, z, link }) => {
+      return new Leaf({ k, x, y, z, link });
     })
-    .reduce((root, leaves, level, parsedTree) => {
-      const prevLeaves = parsedTree[level - 1];
-      if (prevLeaves) {
-        leaves.forEach((leaf, leafIndex) => {
-          const prevLeaf = prevLeaves[leafIndex % prevLeaves.length];
-          prevLeaf.leaves.push(leaf);
-          wholeLeaves.push(leaf);
-        });
-      } else {
-        const leaf = leaves[0];
-        root = leaf;
-        wholeLeaves.push(leaf);
-      }
-      return root;
-    }, {});
+    .map((leaf, index, leaves) => {
+      const { x, y } = leaf;
+      leaf.h =
+        x * options.treeWidth + (clientRect.width - options.treeWidth) * 0.5;
+      leaf.v = y * options.treeHeight;
+      leaf.link = leaf.link.map(k => leaves[k]);
+      return leaf;
+    });
+  let maskingIndex = { current: 0 };
+  let done = false;
+  const duration = options.animationDuration / 1000;
+  gsap.to(maskingIndex, duration, {
+    ease: "power1.in",
+    current: leaves.length,
+    onComplete: () => void (done = true)
+  });
   const shoot = () => {
+    console.log(maskingIndex);
     ctx.clearRect(0, 0, clientRect.width, clientRect.height);
-    drawTree(ctx, options, clientRect, root, null, wholeLeaves);
+    leaves.forEach(leaf => {
+      drawNode(ctx, options, leaf, maskingIndex);
+      drawLeaf(ctx, options, leaf, maskingIndex);
+    });
     options.hasShadow && drawShadow(ctx, options, clientRect);
-    window.requestAnimationFrame(shoot);
+    if (!done) {
+      window.requestAnimationFrame(shoot);
+    }
   };
-  if (dataTable.length) {
-    ctx.clearRect(0, 0, clientRect.width, clientRect.height);
+  if (leaves.length) {
     window.requestAnimationFrame(shoot);
   }
 }
 
-function getRandomRadius(unit) {
-  return unit * (1 + (Math.random() - 0.5) * 0.2);
-}
-
-function drawTree(
-  ctx,
-  options,
-  clientRect,
-  currentLeaf,
-  parentLeaf,
-  wholeLeaves
-) {
-  const { dotSize, perspective } = options;
-  const { theta, phi, r, leaves } = currentLeaf;
-  const { h: parentH = clientRect.width * 0.5, v: parentV = dotSize } =
-    parentLeaf || {};
-  const x = (currentLeaf.x = r * Math.sin(theta) * Math.cos(phi));
-  const y = (currentLeaf.y = r * Math.cos(theta));
-  const z = (currentLeaf.z = r * Math.sin(theta) * Math.sin(phi));
-  const s = (currentLeaf.s =
-    (clientRect.width * perspective) / (clientRect.width * perspective + z));
-  currentLeaf.h = x * s + parentH;
-  currentLeaf.v = y * s + parentV;
-  drawNode(ctx, options, clientRect, parentLeaf || {}, currentLeaf);
-  drawLine(ctx, options, currentLeaf, wholeLeaves);
-  drawLeaf(ctx, options, clientRect, currentLeaf);
-  leaves.forEach(
-    leaf =>
-      void drawTree(ctx, options, clientRect, leaf, currentLeaf, wholeLeaves)
-  );
-}
-
-function drawNode(ctx, options, clientRect, fromLeaf, toLeaf) {
+function drawNode(ctx, options, fromLeaf, maskingIndex) {
   const { color, colorLine } = options;
-  const { z: fromZ, h: fromH, v: fromV } = fromLeaf;
-  const { z: toZ, h: toH, v: toV } = toLeaf;
-  ctx.globalAlpha = Math.min(
-    1,
-    Math.abs(0.5 - ((fromZ + toZ) * 0.5) / clientRect.width)
-  );
-  ctx.strokeStyle = color || colorLine;
-  ctx.beginPath();
-  ctx.moveTo(fromH, fromV);
-  ctx.lineTo(toH, toV);
-  ctx.stroke();
+  const { z: fromZ, h: fromH, v: fromV, link } = fromLeaf;
+  const { current } = maskingIndex;
+  link.forEach(toLeaf => {
+    const { k: toK, z: toZ, h: toH, v: toV } = toLeaf;
+    ctx.globalAlpha = Math.min(fromZ, toZ) * Math.min(1, current - toK);
+    ctx.strokeStyle = color || colorLine;
+    ctx.beginPath();
+    ctx.moveTo(fromH, fromV);
+    ctx.lineTo(toK < current ? toH : fromH, toK < current ? toV : fromV);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  });
 }
 
-function drawLine(ctx, options, currentLeaf, wholeLeaves) {
-  if (!wholeLeaves.slice(0, 2).includes(currentLeaf)) {
-    const { color, colorLine } = options;
-    const { r, x, y, z, h, v } = currentLeaf;
-    const candidates = wholeLeaves.map(({ x: toX, y: toY, z: toZ }, i) => ({
-      d: Math.sqrt(
-        Math.pow(toX - x, 2) + Math.pow(toY - y, 2) + Math.pow(toZ - z, 2)
-      ),
-      i
-    }));
-
-    candidates
-      .sort((a, b) => a.d - b.d)
-      .filter(({ d, i }) => d && i > 1)
-      .slice(0, 2)
-      .forEach(({ d, i }) => {
-        const { h: toH, v: toV } = wholeLeaves[i];
-        if (toH && toV) {
-          ctx.globalAlpha = Math.min(1, Math.sqrt(r) / d);
-          ctx.strokeStyle = color || colorLine;
-          ctx.beginPath();
-          ctx.moveTo(h, v);
-          ctx.lineTo(toH, toV);
-          ctx.stroke();
-        }
-      });
-  }
-}
-
-function drawLeaf(ctx, options, clientRect, currentLeaf) {
+function drawLeaf(ctx, options, leaf, maskingIndex) {
   const { color, colorPoint, dotSize } = options;
-  const { z, h, v, s } = currentLeaf;
-  ctx.globalAlpha = Math.min(1, Math.abs(0.8 - z / clientRect.width));
-  ctx.fillStyle = color || colorPoint;
-  ctx.beginPath();
-  ctx.arc(h, v, dotSize * s, 0, Math.PI * 2);
-  ctx.fill();
+  const { k, z, h, v } = leaf;
+  const { current } = maskingIndex;
+  if (k < current) {
+    const weight = Math.min(1, current - k);
+    ctx.globalAlpha = z * weight;
+    ctx.fillStyle = color || colorPoint;
+    ctx.beginPath();
+    ctx.arc(h, v, dotSize * z * weight, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
 }

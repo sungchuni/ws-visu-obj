@@ -145,8 +145,8 @@ declare namespace Tree {
     colorLine?: string;
     dotsQuantity?: number;
     dotSize?: number;
+    treeWidth?: number;
     treeHeight?: number;
-    perspective?: number;
   }
   interface Options extends Shadow.Options {}
 }

@@ -1,24 +1,34 @@
 export default function gene() {
-  const { options } = this;
-  const { dotsQuantity } = options;
-  const tree = [[{ theta: 0, phi: 0 }], [{ theta: 0, phi: 0 }]];
-  while (!isDone(tree, dotsQuantity)) {
-    const numberOfLeaves = 3 * tree[tree.length - 2].length;
-    const leaves = [];
-    tree.push(leaves);
-    for (let i = 0; i < numberOfLeaves; i++) {
-      !isDone(tree, dotsQuantity) &&
-        leaves.push({
-          theta: Math.PI * 0.25 * (1 + (Math.random() - 0.5) * 0.2),
-          phi:
-            (i - i / numberOfLeaves) * Math.PI * 2 +
-            (tree.length % 3) * (Math.PI / 3)
-        });
-    }
-  }
-  return tree;
-}
-
-function isDone(tree, dotsQuantity) {
-  return !([].concat(...tree).length < dotsQuantity);
+  return [
+    { k: 0, x: 0.5, y: 0.06, z: 1, link: [1] },
+    { k: 1, x: 0.5, y: 0.16, z: 1, link: [2, 3, 16] },
+    { k: 2, x: 0.35, y: 0.29, z: 1, link: [5, 6, 15, 18] },
+    { k: 3, x: 0.54, y: 0.28, z: 1, link: [4, 6, 7, 15, 16] },
+    { k: 4, x: 0.78, y: 0.35, z: 1, link: [7, 9, 17, 22] },
+    { k: 5, x: 0.2, y: 0.41, z: 1, link: [10, 11, 18] },
+    { k: 6, x: 0.42, y: 0.51, z: 1, link: [11, 12, 13, 20] },
+    { k: 7, x: 0.59, y: 0.44, z: 1, link: [8, 12, 23] },
+    { k: 8, x: 0.74, y: 0.6, z: 1, link: [9, 14, 22, 23, 24, 27, 29] },
+    { k: 9, x: 0.86, y: 0.56, z: 1, link: [24] },
+    { k: 10, x: 0.08, y: 0.71, z: 1, link: [25] },
+    { k: 11, x: 0.25, y: 0.7, z: 1, link: [13, 26] },
+    { k: 12, x: 0.54, y: 0.7, z: 1, link: [13, 14, 19, 23, 28] },
+    { k: 13, x: 0.36, y: 0.86, z: 1, link: [] },
+    { k: 14, x: 0.68, y: 0.85, z: 1, link: [23, 28] },
+    { k: 15, x: 0.41, y: 0.37, z: 0.6, link: [19] },
+    { k: 16, x: 0.64, y: 0.35, z: 0.6, link: [22] },
+    { k: 17, x: 0.86, y: 0.42, z: 0.6, link: [] },
+    { k: 18, x: 0.29, y: 0.47, z: 0.6, link: [20, 21] },
+    { k: 19, x: 0.51, y: 0.44, z: 0.6, link: [] },
+    { k: 20, x: 0.36, y: 0.65, z: 0.6, link: [] },
+    { k: 21, x: 0.18, y: 0.65, z: 0.6, link: [25, 26] },
+    { k: 22, x: 0.68, y: 0.46, z: 0.6, link: [] },
+    { k: 23, x: 0.65, y: 0.68, z: 0.6, link: [] },
+    { k: 24, x: 0.9, y: 0.7, z: 0.6, link: [] },
+    { k: 25, x: 0.14, y: 0.84, z: 0.6, link: [26] },
+    { k: 26, x: 0.26, y: 0.86, z: 0.6, link: [] },
+    { k: 27, x: 0.82, y: 0.74, z: 0.6, link: [29] },
+    { k: 28, x: 0.56, y: 0.93, z: 0.6, link: [] },
+    { k: 29, x: 0.75, y: 0.89, z: 0.6, link: [] }
+  ];
 }

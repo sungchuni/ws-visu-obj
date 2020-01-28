@@ -25,6 +25,10 @@ export default class Base extends React.Component {
       innerHeight: window.innerHeight
     };
   }
+  componentDidUpdate({ data, options }) {
+    Object.assign(this.data, data || []);
+    Object.assign(this.options, options || {});
+  }
   componentWillUnmount() {
     window.removeEventListener("resize", this.resizeCallback);
     if (this.intersectionObserver) {

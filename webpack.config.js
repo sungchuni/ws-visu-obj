@@ -36,6 +36,12 @@ module.exports = {
       amd: "gsap",
       root: "gsap"
     },
+    "intersection-observer": {
+      commonjs: "IntersectionObserver",
+      commonjs2: "IntersectionObserver",
+      amd: "IntersectionObserver",
+      root: "IntersectionObserver"
+    },
     react: {
       commonjs: "react",
       commonjs2: "react",

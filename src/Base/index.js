@@ -1,3 +1,5 @@
+import "intersection-observer";
+
 import * as _ from "lodash-es";
 import React from "react";
 

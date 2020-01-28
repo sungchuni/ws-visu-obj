@@ -28,7 +28,6 @@ export default function draw() {
     onComplete: () => void (done = true)
   });
   const shoot = () => {
-    console.log(maskingIndex);
     ctx.clearRect(0, 0, clientRect.width, clientRect.height);
     leaves.forEach(leaf => {
       drawNode(ctx, options, leaf, maskingIndex);

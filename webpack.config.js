@@ -29,26 +29,23 @@ module.exports = {
       }
     ]
   },
-  externals: {
-    gsap: {
-      commonjs: "gsap",
-      commonjs2: "gsap",
-      amd: "gsap",
-      root: "gsap"
+  externals: [
+    {
+      gsap: {
+        commonjs: "gsap",
+        commonjs2: "gsap",
+        amd: "gsap",
+        root: "gsap"
+      },
+      react: {
+        commonjs: "react",
+        commonjs2: "react",
+        amd: "React",
+        root: "React"
+      }
     },
-    "intersection-observer": {
-      commonjs: "IntersectionObserver",
-      commonjs2: "IntersectionObserver",
-      amd: "IntersectionObserver",
-      root: "IntersectionObserver"
-    },
-    react: {
-      commonjs: "react",
-      commonjs2: "react",
-      amd: "React",
-      root: "React"
-    }
-  },
+    /^intersection-observer$/
+  ],
   plugins: [
     new CleanWebpackPlugin({
       verbose: true

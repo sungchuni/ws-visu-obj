@@ -1,6 +1,6 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const PnpWebpackPlugin = require("pnp-webpack-plugin");
 const { resolve } = require("path");
-const webpack = require("webpack");
 
 const PATH = {};
 PATH.ROOT = process.cwd();
@@ -50,5 +50,11 @@ module.exports = {
     new CleanWebpackPlugin({
       verbose: true
     })
-  ]
+  ],
+  resolve: {
+    plugins: [PnpWebpackPlugin]
+  },
+  resolveLoader: {
+    plugins: [PnpWebpackPlugin.moduleLoader(module)]
+  }
 };

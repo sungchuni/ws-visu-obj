@@ -24,7 +24,8 @@ const DEFAULT_LEAF_OPTIONS = Object.freeze({
   annotationSuffix: "",
   isPercentage: false,
   animationDuration: 1500,
-  isScrollObserved: true
+  isScrollObserved: true,
+  isScrollObservedOnce: false
 });
 
 export default class Leaf extends Base {

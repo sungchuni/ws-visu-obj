@@ -52,6 +52,7 @@ declare namespace Leaf {
     annotationSuffix?: string;
     isPercentage?: boolean;
     isScrollObserved?: boolean;
+    isScrollObservedOnce?: boolean;
   }
 }
 
@@ -90,6 +91,7 @@ declare namespace Line {
     lineWidth?: number;
     hasAnimationHorizontal?: boolean;
     isScrollObserved?: boolean;
+    isScrollObservedOnce?: boolean;
   }
   interface Options extends Shadow.Options {}
 }
@@ -116,6 +118,7 @@ declare namespace Silk {
     pointSize?: number;
     lineWidth?: number;
     isScrollObserved?: boolean;
+    isScrollObservedOnce?: boolean;
   }
   interface Options extends Shadow.Options {}
 }
@@ -148,6 +151,8 @@ declare namespace Tree {
     dotSize?: number;
     treeWidth?: number;
     treeHeight?: number;
+    isScrollObserved?: boolean;
+    isScrollObservedOnce?: boolean;
   }
   interface Options extends Shadow.Options {}
 }

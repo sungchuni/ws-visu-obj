@@ -18,6 +18,7 @@ const DEFAULT_SILK_OPTIONS = Object.freeze({
   lineWidth: 1,
   animationDuration: 1500,
   isScrollObserved: true,
+  isScrollObservedOnce: false,
   hasShadow: true,
   shadowColor: COLOR_SHADOW,
   shadowSize: (640 - 96 * 2) * 0.9,

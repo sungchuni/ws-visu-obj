@@ -38,7 +38,14 @@ export default class Base extends React.Component {
     }
   }
   intersectionCallback(entries) {
-    entries.forEach(entry => void (entry.isIntersecting && this.draw()));
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        this.draw();
+        if (this.options.isScrollObservedOnce) {
+          this.intersectionObserver.disconnect();
+        }
+      }
+    });
   }
   receiveCanvasCtx(canvas, ctx) {
     this.canvas = canvas;
@@ -48,7 +55,8 @@ export default class Base extends React.Component {
       this.intersectionObserver = new window.IntersectionObserver(
         this.intersectionCallback,
         {
-          rootMargin: `-${this.options.marginY}px 0px`
+          rootMargin: `-${this.options.marginY ||
+            this.options.height * 0.1}px 0px`
         }
       );
       this.intersectionObserver.observe(canvas);

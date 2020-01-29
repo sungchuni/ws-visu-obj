@@ -19,7 +19,9 @@ const DEFAULT_TREE_OPTIONS = Object.freeze({
   shadowColor: COLOR_SHADOW,
   shadowSize: 120,
   shadowBlur: 16,
-  shadowOffset: SHADOW_OFFSET
+  shadowOffset: SHADOW_OFFSET,
+  isScrollObserved: true,
+  isScrollObservedOnce: false
 });
 
 export default class WashingMachine extends Base {

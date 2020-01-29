@@ -24,6 +24,7 @@ const DEFAULT_LINE_OPTIONS = Object.freeze({
   animationDuration: 1500,
   hasAnimationHorizontal: true,
   isScrollObserved: true,
+  isScrollObservedOnce: false,
   hasShadow: true,
   shadowColor: COLOR_SHADOW,
   shadowSize: 512 * 0.6,

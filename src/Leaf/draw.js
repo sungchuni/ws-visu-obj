@@ -138,10 +138,13 @@ function drawTopAnnotation(ctx, options, topItem) {
     annotationFontSize,
     fontStyle,
     marginY,
+    annotationSuffix,
     isPercentage
   } = options;
   const { value, x, y } = topItem;
-  const annotationTitle = isPercentage
+  const annotationTitle = annotationSuffix
+    ? `${Math.round(value)}${annotationSuffix}`
+    : isPercentage
     ? `${(value * 100).toFixed(1)}%`
     : value.toFixed(1);
   ctx.font = `${annotationFontSize}px ${fontStyle}`;

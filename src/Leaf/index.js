@@ -21,6 +21,7 @@ const DEFAULT_LEAF_OPTIONS = Object.freeze({
   pointSize: 7,
   lineWidth: 1,
   showTopAnnotation: false,
+  annotationSuffix: "",
   isPercentage: false,
   animationDuration: 1500,
   isScrollObserved: true

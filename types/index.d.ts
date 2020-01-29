@@ -49,6 +49,7 @@ declare namespace Leaf {
     pointSize?: number;
     lineWidth?: number;
     showTopAnnotation?: boolean;
+    annotationSuffix?: string;
     isPercentage?: boolean;
     isScrollObserved?: boolean;
   }
